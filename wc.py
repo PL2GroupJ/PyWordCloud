@@ -45,7 +45,7 @@ summer_mask = np.array(Image.open(
 autumn_mask = np.array(Image.open(
     path.join(d, os.getcwd() + "/image/autumn-mask.png")))
 winter_mask = np.array(Image.open(
-    path.join(d, os.getcwd() + "/image/winter_mask.png")))
+    path.join(d, os.getcwd() + "/image/winter-mask.png")))
 
 while True:
     today = datetime.date.today()
