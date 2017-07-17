@@ -11,11 +11,13 @@ from os import path
 import numpy as np
 from PIL import Image
 import datetime
+import matplotlib.pyplot as plt
+
 import time
 
 sys.path.append(os.getcwd() + "/lib/wordcloud")
 
-from wordcloud import WordCloud
+from wordcloud import WordCloud, ImageColorGenerator
 
 text = "初鳩,はつばと,新,初花,はつはな,新,初針,はつはり,新,初春,はつはる,新,初日,はつひ,新,初日影,はつひかげ,新,初飛行,はつひこう,新," \
        "初披講,はつひこう,新,初日の出,はつひので,新,初雲雀,はつひばり,春,初富士,はつふじ,新,初冬,はつふゆ,冬,初風呂,はつぶろ,新,初箒," \
@@ -49,40 +51,55 @@ winter_mask = np.array(Image.open(
 
 while True:
     today = datetime.date.today()
-    if(today.day - start_day.day) % 7 == 0:
-        wordcloud = WordCloud(background_color="white", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
-                              mask=current_mask, width=450, height=450).generate(text.decode('utf-8'))
-        wordcloud.to_file("./current_wordcloud.png")
-        print("current_wordcloud was generated.")
+    # if(today.day - start_day.day) % 7 == 0:
+    wordcloud = WordCloud(background_color="lightcyan", mode="RGB", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
+                              mask=current_mask, width=450, height=450, colormap="gist_rainbow").generate(text.decode('utf-8'))
+    wordcloud.to_file("./current_wordcloud.png")
+    print("current_wordcloud was generated.")
 
-    if today.month in range(1, 4):
-        wordcloud = WordCloud(background_color="white", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
-                              mask=spring_mask, width=450, height=450).generate(text.decode('utf-8'))
-        wordcloud.to_file("./spring_wordcloud.png")
-        print("spring_wordcloud was generated.")
+    # if today.month in range(1, 4):
+    wordcloud = WordCloud(background_color="palegreen", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
+                              mask=spring_mask, width=450, height=450, colormap="spring").generate(text.decode('utf-8'))
+    wordcloud.to_file("./spring_wordcloud.png")
+    print("spring_wordcloud was generated.")
 
-    if (today.month == 1) and (today.day in range(1, 3)):
-        wordcloud = WordCloud(background_color="white", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
-                              mask=newyear_mask, width=450, height=450).generate(text.decode('utf-8'))
-        wordcloud.to_file("./newyear_wordcloud.png")
-        print("newyear_wordcloud was generated.")
+    # if (today.month == 1) and (today.day in range(1, 3)):
+    wordcloud = WordCloud(background_color="moccasin", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
+                              mask=newyear_mask, width=450, height=450, colormap="Reds").generate(text.decode('utf-8'))
+    wordcloud.to_file("./newyear_wordcloud.png")
+    print("newyear_wordcloud was generated.")
 
-    elif today.month in range(4, 7):
-        wordcloud = WordCloud(background_color="white", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
-                              mask=summer_mask, width=450, height=450).generate(text.decode('utf-8'))
-        wordcloud.to_file("./summer_wordcloud.png")
-        print("summer_wordcloud was generated.")
+    # elif today.month in range(4, 7):
+    wordcloud = WordCloud(background_color="paleturquoise", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
+                              mask=summer_mask, width=450, height=450, colormap="summer").generate(text.decode('utf-8'))
+    wordcloud.to_file("./summer_wordcloud.png")
+    print("summer_wordcloud was generated.")
 
-    elif today.month in range(7, 10):
-        wordcloud = WordCloud(background_color="white", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
-                              mask=autumn_mask, width=450, height=450).generate(text.decode('utf-8'))
-        wordcloud.to_file("./autumn_wordcloud.png")
-        print("autumn_wordcloud was generated.")
+    # elif today.month in range(7, 10):
+    wordcloud = WordCloud(background_color="darkslategray", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
+                              mask=autumn_mask, width=450, height=450, colormap="autumn").generate(text.decode('utf-8'))
+    autumn_coloring = np.array(Image.open(path.join(d, os.getcwd() + "/image/autumn-mask.png")))
 
-    elif today.month in range(10, 13):
-        wordcloud = WordCloud(background_color="white", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
-                              mask=winter_mask, width=450, height=450).generate(text.decode('utf-8'))
-        wordcloud.to_file("./winter_wordcloud.png")
-        print("winter_wordcloud was generated.")
+    wordcloud.to_file("./autumn_wordcloud.png")
+    print("autumn_wordcloud was generated.")
 
-    time.sleep(60)
+    # elif today.month in range(10, 13):
+    wordcloud = WordCloud(background_color="midnightblue", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
+                              mask=winter_mask, width=450, height=450, colormap="PuBuGn").generate(text.decode('utf-8'))
+    wordcloud.to_file("./winter_wordcloud.png")
+    print("winter_wordcloud was generated.")
+
+    # 色変更テスト
+    # wordcloud = WordCloud(background_color="white", font_path="/System/Library/Fonts/ヒラギノ角ゴシック W5.ttc",
+    #                      mask=spring_mask, width=450, height=450).generate(text.decode('utf-8'))
+
+    # spring_coloring = np.array(Image.open(path.join(d, os.getcwd() + "/image/spring-mask.png")))
+    # image_colors = ImageColorGenerator(spring_coloring)
+
+    # plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation="bilinear")
+
+    # wordcloud.to_file("./spring_wordcloud.png")
+    # print("spring_wordcloud was generated.")
+
+    # time.sleep(86400)
+
